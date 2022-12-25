@@ -37,7 +37,7 @@
 		<to name="death_run" redirect="std/death/bullet/run"/>
 		<to name="death_fire" redirect="std/death/fire"/>
 		<to name="dodge" redirect="std/dodge"/>
-		<to name="suppressed_reaction" redirect="std/crouch/still/suppressed_reaction"/>
+		<to name="suppressed_reaction" redirect="std/stand/still/suppressed_reaction"/>
 		<to name="heavy_run" redirect="std/hurt/bullet_run"/>
 
 		<to name="cmd_stop" redirect="upper_body/cmd/stop"/>
@@ -1146,6 +1146,24 @@
 			<key at="enter" set_extension="anim_data" extension_key="still" extension_value="true"/>
 			<key at="exit" set_extension="anim_data" extension_key="still" extension_value="false"/>
 		</keys>
+	</state>
+
+	<state name="std/stand/still/suppressed_reaction" type="mix" segment="base">
+		<default blend="10" />
+		<anim name="cbt_rifle_std_to_sup" weight="cbt * rifle"/>
+		<anim name="hos_rifle_std_to_sup" weight="hos * rifle"/>
+
+		<anim name="cbt_pistol_std_to_sup" weight="cbt * pistol"/>
+		<anim name="hos_pistol_std_to_sup" weight="hos * pistol"/>
+
+		<keys>
+			<key at="enter" set_extension="anim_data" extension_key="act" extension_value="true"/>
+			<key at="exit" set_extension="anim_data" extension_key="act" extension_value="false"/>
+
+			<key at="enter" set_extension="anim_data" extension_key="act_idle" extension_value="true"/>
+			<key at="exit" set_extension="anim_data" extension_key="act_idle" extension_value="false"/>
+		</keys>
+		<exit name="std/crouch/still/idle"/>
 	</state>
 
 	<state name="std/stand/still/attached_collar/enter" type="once" segment="base">
@@ -3520,6 +3538,8 @@
 		<to name="recoil_shotgun" redirect="upper_body/crh/recoil/shotgun"/>
 		<to name="idle" redirect="std/crouch/still/idle"/>
 		<to name="light_hurt" redirect="upper_body/hurt/crouch/light"/>
+		
+		<to name="suppressed_reaction" redirect="std/crouch/still/suppressed_reaction"/>
 
 		<to name="turn_l" redirect="std/crouch/still/turn/l"/>
 		<to name="turn_r" redirect="std/crouch/still/turn/r"/>
@@ -4129,19 +4149,14 @@
 	</state>
 
 	<state name="std/crouch/still/suppressed_reaction" type="mix" segment="base">
-		<param name="from_stand" value="0" />
 		<default blend="10" />
-		<anim name="cbt_rifle_std_to_sup" weight="cbt * rifle * from_stand"/>
-		<anim name="cbt_rifle_crh_to_sup" weight="cbt * rifle * ( 1 - from_stand )"/>
-		<anim name="hos_rifle_std_to_sup" weight="hos * rifle * from_stand"/>
-		<anim name="hos_rifle_crh_to_sup" weight="hos * rifle * ( 1 - from_stand )"/>
+		<anim name="cbt_rifle_crh_to_sup" weight="cbt * rifle"/>
+		<anim name="hos_rifle_crh_to_sup" weight="hos * rifle"/>
 
-		<anim name="cbt_pistol_std_to_sup" weight="cbt * pistol * from_stand"/>
-		<anim name="cbt_pistol_crh_to_sup" weight="cbt * pistol * ( 1 - from_stand )"/>
-		<anim name="hos_pistol_std_to_sup" weight="hos * pistol * from_stand"/>
-		<anim name="hos_pistol_crh_to_sup" weight="hos * pistol * ( 1 - from_stand )"/>
+		<anim name="cbt_pistol_crh_to_sup" weight="cbt * pistol"/>
+		<anim name="hos_pistol_crh_to_sup" weight="hos * pistol"/>
 
-		<anim name="spotter_cbt_crh_to_sup" weight="( hos + cbt ) * spotter * ( 1 - from_stand )"/>
+		<anim name="spotter_cbt_crh_to_sup" weight="( hos + cbt ) * spotter"/>
 
 		<keys>
 			<key at="enter" set_extension="anim_data" extension_key="act" extension_value="true"/>
@@ -4150,7 +4165,6 @@
 			<key at="enter" set_extension="anim_data" extension_key="act_idle" extension_value="true"/>
 			<key at="exit" set_extension="anim_data" extension_key="act_idle" extension_value="false"/>
 		</keys>
-
 		<exit name="std/crouch/still/idle"/>
 	</state>
 
